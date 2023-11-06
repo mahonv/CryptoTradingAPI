@@ -1,0 +1,20 @@
+syntax = "proto3";
+
+option csharp_namespace = "Hft.HftApi.ApiContract";
+
+package common;
+
+service Monitoring {
+	rpc IsAlive (IsAliveRequest) returns (IsAliveResponse);
+}
+
+message IsAliveRequest {
+}
+
+message IsAliveResponse {
+	string name = 1;
+	string version = 2;
+	string startedAt = 3;
+	string env = 4;
+	string hostname = 5;
+}

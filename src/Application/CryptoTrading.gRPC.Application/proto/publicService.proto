@@ -1,0 +1,52 @@
+syntax = "proto3";
+
+import "google/protobuf/empty.proto";
+import "google/protobuf/timestamp.proto";
+import "common.proto";
+
+option csharp_namespace = "Hft.HftApi.ApiContract";
+
+package hft;
+
+service PublicService {
+    rpc GetAssets (google.protobuf.Empty) returns (AssetsResponse);
+    rpc GetAsset (AssetRequest) returns (AssetResponse);
+    rpc GetPriceUpdates (PriceUpdatesRequest) returns (stream PriceUpdate);
+}
+
+// Requests
+
+message AssetRequest {
+    string assetId = 1;
+}
+
+message PriceUpdatesRequest {
+    repeated string assetPairIds = 1;
+}
+
+// Responses
+
+message Asset {
+    reserved 1; // reserved for id
+    string name = 2;
+    string symbol = 3;
+}
+
+message AssetResponse {
+    Asset payload = 1;
+    hft.common.Error error = 2;
+}
+
+message AssetsResponse {
+    repeated Asset payload = 1;
+    hft.common.Error error = 2;
+}
+
+message PriceUpdate {
+    string assetPairId = 1;
+    string bid = 2;
+    string ask = 3;
+    google.protobuf.Timestamp timestamp = 4;
+}
+
+

@@ -1,0 +1,46 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CryptoTrading.gRPC.Application", "src\Application\CryptoTrading.gRPC.Application\CryptoTrading.gRPC.Application.csproj", "{AC611E86-7464-401E-AC86-F56E23558B5F}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{B715D7DA-A385-4604-811E-A678EB290A77}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CryptoTrading.Application.Tests", "tests\CryptoTrading.Application.Tests\CryptoTrading.Application.Tests.csproj", "{AE88FEDE-AB79-460A-A726-21FBEA91DC10}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CryptoTrading.Domain", "src\CryptoTrading.Domain\CryptoTrading.Domain.csproj", "{52483C1B-104A-4C0E-85E6-0E65E7E8B05F}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CryptoTrading.Infrastructure", "src\CryptoTrading.Infrastructure\CryptoTrading.Infrastructure.csproj", "{25747F82-AC03-42B0-996D-C857CB320148}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CryptoProviderIntegrationTests", "tests\CryptoProviderIntegrationTests\CryptoProviderIntegrationTests.csproj", "{07273085-C10A-43C7-9144-7C9C90AEE4C8}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{AC611E86-7464-401E-AC86-F56E23558B5F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AC611E86-7464-401E-AC86-F56E23558B5F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AC611E86-7464-401E-AC86-F56E23558B5F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AC611E86-7464-401E-AC86-F56E23558B5F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{AE88FEDE-AB79-460A-A726-21FBEA91DC10}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AE88FEDE-AB79-460A-A726-21FBEA91DC10}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AE88FEDE-AB79-460A-A726-21FBEA91DC10}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AE88FEDE-AB79-460A-A726-21FBEA91DC10}.Release|Any CPU.Build.0 = Release|Any CPU
+		{52483C1B-104A-4C0E-85E6-0E65E7E8B05F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{52483C1B-104A-4C0E-85E6-0E65E7E8B05F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{52483C1B-104A-4C0E-85E6-0E65E7E8B05F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{52483C1B-104A-4C0E-85E6-0E65E7E8B05F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{25747F82-AC03-42B0-996D-C857CB320148}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{25747F82-AC03-42B0-996D-C857CB320148}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{25747F82-AC03-42B0-996D-C857CB320148}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{25747F82-AC03-42B0-996D-C857CB320148}.Release|Any CPU.Build.0 = Release|Any CPU
+		{07273085-C10A-43C7-9144-7C9C90AEE4C8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{07273085-C10A-43C7-9144-7C9C90AEE4C8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{07273085-C10A-43C7-9144-7C9C90AEE4C8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{07273085-C10A-43C7-9144-7C9C90AEE4C8}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{AE88FEDE-AB79-460A-A726-21FBEA91DC10} = {B715D7DA-A385-4604-811E-A678EB290A77}
+		{07273085-C10A-43C7-9144-7C9C90AEE4C8} = {B715D7DA-A385-4604-811E-A678EB290A77}
+	EndGlobalSection
+EndGlobal
