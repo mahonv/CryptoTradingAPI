@@ -27,10 +27,9 @@ message PriceUpdatesRequest {
 // Responses
 
 message Asset {
-    string assetId = 1;
+    reserved 1; // reserved for id
     string name = 2;
     string symbol = 3;
-    int32 accuracy = 4;
 }
 
 message AssetResponse {

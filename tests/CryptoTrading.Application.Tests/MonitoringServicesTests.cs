@@ -8,7 +8,7 @@ using Shouldly;
 
 namespace CryptoTrading.Application.Tests;
 
-public class MonitoringTests
+public class MonitoringServicesTests
 {
     private WebApplication _webApplication = null!;
 
