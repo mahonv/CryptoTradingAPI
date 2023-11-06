@@ -1,4 +1,5 @@
 using CryptoTrading.gRPC.Application.IOC;
+using CryptoTrading.Infrastructure;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -7,8 +8,17 @@ var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddGrpc();
+
+var tmp = builder.Configuration.GetSection("CoinMarketCap");
+
+CoinMarketCapEnvironment coinMarketCapEnvironment = new ();
+builder.Configuration.GetRequiredSection("CoinMarketCap").Bind(coinMarketCapEnvironment);
+builder.Services.AddSingleton(coinMarketCapEnvironment);
+
+builder.Services.InjectCryptoQuoteProvider();
+
 var app = builder.Build();
 
 app.AddHftGrpcServiceMapping();
-// Configure the HTTP request pipeline.
+
 app.Run();

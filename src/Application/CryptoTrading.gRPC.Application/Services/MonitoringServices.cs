@@ -4,7 +4,7 @@ using Hft.HftApi.ApiContract;
 
 namespace CryptoTrading.gRPC.Application.Services;
 
-public class MonitoringService : Monitoring.MonitoringBase
+public class MonitoringServices : Monitoring.MonitoringBase
 {
     public override Task<IsAliveResponse> IsAlive(IsAliveRequest request, ServerCallContext context)
     {
