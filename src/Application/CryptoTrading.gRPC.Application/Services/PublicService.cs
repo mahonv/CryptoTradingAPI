@@ -1,18 +1,28 @@
-﻿using CryptoTrading.Domain;
-using Google.Protobuf.Collections;
+﻿using System.Text.Json;
+using Confluent.Kafka;
+using CryptoTrading.Domain;
+using CryptoTrading.Infrastructure;
 using Google.Protobuf.WellKnownTypes;
 using Grpc.Core;
 using Hft.HftApi.ApiContract;
+using Polly;
+using Error = Hft.HftApi.ApiContract.Error;
+using ErrorCode = Hft.HftApi.ApiContract.ErrorCode;
+using Timestamp = Google.Protobuf.WellKnownTypes.Timestamp;
 
 namespace CryptoTrading.gRPC.Application.Services;
 
 public class PublicServices : PublicService.PublicServiceBase
 {
     private readonly ICryptoProvider _provider;
+    private readonly BrokerConfig _brokerConfig;
+    private readonly ICryptoCacheService _cryptoCacheService;
 
-    public PublicServices(ICryptoProvider provider)
+    public PublicServices(ICryptoProvider provider, BrokerConfig brokerConfig, ICryptoCacheService cryptoCacheService)
     {
         _provider = provider;
+        _brokerConfig = brokerConfig;
+        _cryptoCacheService = cryptoCacheService;
     }
 
     public override async Task<AssetsResponse> GetAssets(Empty request, ServerCallContext context)
@@ -79,9 +89,46 @@ public class PublicServices : PublicService.PublicServiceBase
         };
     }
 
-    public override Task GetPriceUpdates(PriceUpdatesRequest request, IServerStreamWriter<PriceUpdate> responseStream,
+    public override async Task GetPriceUpdates(PriceUpdatesRequest request,
+        IServerStreamWriter<PriceUpdate> responseStream,
         ServerCallContext context)
     {
-        return base.GetPriceUpdates(request, responseStream, context);
+        _cryptoCacheService.RequestQuotes(request.AssetPairIds);
+        
+        var config = new ConsumerConfig
+        {
+            BootstrapServers = _brokerConfig.BaseUrl,
+            GroupId = "consumer-1",
+            EnableAutoOffsetStore = false,
+            EnableAutoCommit = true,
+            StatisticsIntervalMs = 5000,
+            SessionTimeoutMs = 6000,
+            AutoOffsetReset = AutoOffsetReset.Latest,
+            EnablePartitionEof = true,
+            PartitionAssignmentStrategy = PartitionAssignmentStrategy.CooperativeSticky,
+        };
+
+        var policy = Policy
+            .Handle<ConsumeException>()
+            .WaitAndRetryForeverAsync(
+                (_)=> TimeSpan.FromMilliseconds(200),
+                (exception, _) => { });
+        
+        using var consumer = new ConsumerBuilder<string, string>(config)
+            .SetErrorHandler((_, e) => Console.WriteLine($"Error: {e.Reason}"))
+            .SetValueDeserializer(Deserializers.Utf8).Build();
+        
+        consumer.Subscribe(request.AssetPairIds.Select(asset => $"cryptocurrency.quote.USD.{asset}"));
+        while (!context.CancellationToken.IsCancellationRequested)
+        {
+            await  policy.ExecuteAsync(async () =>
+            {
+                var msg = consumer.Consume(context.CancellationToken);
+               
+                if (msg?.Message?.Value is null) return;
+                var json = JsonSerializer.Deserialize<CryptoCurrencyPriceUpdate>(msg.Message.Value);
+                await responseStream.WriteAsync(new PriceUpdate{Price = json.Price, Timestamp =Timestamp.FromDateTimeOffset(json.Timestamp), AssetPairSymbol = json.PairName});
+            });
+        }
     }
 }
