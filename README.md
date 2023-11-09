@@ -8,4 +8,4 @@ Covered by :
 
 ## Instruction
 
-Generate a coin marketcap API key and override it in the appsettings.json
+Generate a CoinMarketCap API key and override it in the appsettings.json
