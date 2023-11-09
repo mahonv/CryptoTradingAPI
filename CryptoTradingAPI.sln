@@ -4,7 +4,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CryptoTrading.gRPC.Applicat
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{B715D7DA-A385-4604-811E-A678EB290A77}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CryptoTrading.Application.Tests", "tests\CryptoTrading.Application.Tests\CryptoTrading.Application.Tests.csproj", "{AE88FEDE-AB79-460A-A726-21FBEA91DC10}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CryptoTrading.Application.Functional.Tests", "tests\CryptoTrading.Application.Functional.Tests\CryptoTrading.Application.Functional.Tests.csproj", "{AE88FEDE-AB79-460A-A726-21FBEA91DC10}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CryptoTrading.Domain", "src\CryptoTrading.Domain\CryptoTrading.Domain.csproj", "{52483C1B-104A-4C0E-85E6-0E65E7E8B05F}"
 EndProject
