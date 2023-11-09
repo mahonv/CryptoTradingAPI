@@ -8,11 +8,11 @@ public class CryptoCurrencyMapDto
 
     [JsonProperty("rank")] public long Rank { get; set; }
 
-    [JsonProperty("name")] public string Name { get; set; }
+    [JsonProperty("name")] public string Name { get; set; } = null!;
 
-    [JsonProperty("symbol")] public string Symbol { get; set; }
+    [JsonProperty("symbol")] public string Symbol { get; set; } = null!;
 
-    [JsonProperty("slug")] public string Slug { get; set; }
+    [JsonProperty("slug")] public string Slug { get; set; } = null!;
 
     [JsonProperty("is_active")] public long IsActive { get; set; }
 
@@ -28,11 +28,11 @@ public class CryptoPlatformDto
 {
     [JsonProperty("id")] public long Id { get; set; }
 
-    [JsonProperty("name")] public string Name { get; set; }
+    [JsonProperty("name")] public string Name { get; set; } = null!;
 
-    [JsonProperty("symbol")] public string Symbol { get; set; }
+    [JsonProperty("symbol")] public string Symbol { get; set; } = null!;
 
-    [JsonProperty("slug")] public string Slug { get; set; }
+    [JsonProperty("slug")] public string Slug { get; set; } = null!;
 
-    [JsonProperty("token_address")] public string TokenAddress { get; set; }
+    [JsonProperty("token_address")] public string TokenAddress { get; set; } = null!;
 }

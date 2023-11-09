@@ -43,10 +43,9 @@ message AssetsResponse {
 }
 
 message PriceUpdate {
-    string assetPairId = 1;
-    string bid = 2;
-    string ask = 3;
-    google.protobuf.Timestamp timestamp = 4;
+    string assetPairSymbol = 1;
+    string price = 2;
+    google.protobuf.Timestamp timestamp = 3;
 }
 
 

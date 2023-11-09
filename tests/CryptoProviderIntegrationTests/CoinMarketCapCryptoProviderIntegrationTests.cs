@@ -1,5 +1,6 @@
 using CryptoTrading.Infrastructure;
 using Shouldly;
+using static System.Globalization.CultureInfo;
 
 namespace CryptoProviderIntegrationTests;
 
@@ -13,7 +14,7 @@ public class Tests
         _dataProvider = new CoinMarketCapDataProvider(new CoinMarketCapEnvironment
         {
             BaseUrl = "https://pro-api.coinmarketcap.com",
-            ApiKey = "your api key"
+            ApiKey = ""
         });
     }
 
@@ -32,5 +33,18 @@ public class Tests
         btc.CoinMarketCapId.ShouldBe(1);
         cryptoDictionary.ShouldContainKey("ETH");
         cryptoDictionary.ShouldContainKey("DOGE");
+    }
+    
+    [Test]
+    public async Task ShouldRetrieveCoinsQuote()
+    {
+        var response = await _dataProvider.GetCryptoQuotes(new List<long>{1});
+        
+        response.ShouldNotBeEmpty();
+        var priceUpdate = response.First();
+        priceUpdate.Price.ShouldNotBeEmpty();
+        priceUpdate.PairName.ShouldBe("BTC-USD");
+        priceUpdate.Timestamp.ShouldNotBe(DateTimeOffset.MinValue);
+        decimal.Parse(priceUpdate.Price, InvariantCulture).ShouldBePositive();
     }
 }

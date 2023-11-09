@@ -17,4 +17,12 @@ public static class Ioc
 
     public static IServiceCollection InjectCryptoQuoteProvider(this IServiceCollection collection)
         => collection.AddSingleton<ICryptoProvider, CoinMarketCapDataProvider>();
+
+    public static IServiceCollection InjectCache(this IServiceCollection collection)
+        => collection
+            .AddSingleton<ICryptoCacheService, CryptoCacheService>()
+            .AddHostedService(_ => (_.GetRequiredService<ICryptoCacheService>() as CryptoCacheService)!);
+
+    public static IServiceCollection InjectBus(this IServiceCollection collection)
+        => collection.AddSingleton<BrokerProducer>();
 }
